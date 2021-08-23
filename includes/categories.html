@@ -1,0 +1,73 @@
+<?php
+
+  $mensagem = '';
+  if(isset($_GET['status'])){
+    switch ($_GET['status']) {
+      case 'success':
+        $mensagem = '<div class="alert alert-success">Ação executada com sucesso!</div>';
+        break;
+
+      case 'error':
+        $mensagem = '<div class="alert alert-danger">Ação não executada!</div>';
+        break;
+    }
+  }
+
+  $resultados = '';
+  foreach($categories as $category){
+    $resultados .= '<tr>
+                      <td>'.$category->name.'</td>
+                      <td>'.$category->id.'</td>
+                      <td>
+                      <div class="actions">
+                      <a href="CategoryEdit.php?id='.$category->id.'">
+                      <div class="action edit"><span>Edit</span></div>
+                      </a>
+                      <a href="CategoryDelete.php?id='.$category->id.'">
+                      <div class="action delete"><span>Delete</span></div>
+                      </div>
+                      </a>
+                    </td>
+                  </tr>';
+  }
+
+  $resultados = strlen($resultados) ? $resultados : '<tr>
+                                                       <td colspan="6" class="text-center">
+                                                              Nenhuma categoria encontrada
+                                                       </td>
+                                                    </tr>';
+
+?>
+<main>
+
+  <?=$mensagem?>
+  
+  <!-- Main Content -->
+  <main class="content">
+    <div class="header-list-page">
+      <h1 class="title">Categories</h1>
+      <a href="CategoryForm.php" class="btn-action">Add new Category</a>
+    </div>
+    <table class="data-grid">
+      <tr class="data-row">
+        <th class="data-grid-th">
+            <span class="data-grid-cell-content">Name</span>
+        </th>
+        <th class="data-grid-th">
+            <span class="data-grid-cell-content">Code</span>
+        </th>
+        <th class="data-grid-th">
+            <span class="data-grid-cell-content">Actions</span>
+        </th>
+      </tr>
+      <tr class="data-row">
+        <td class="data-grid-td">
+           <span class="data-grid-cell-content"><?=$resultados?></span>
+        </td>
+      
+      </tr>
+    </table>
+  </main>
+  <!-- Main Content -->
+
+  

@@ -1,0 +1,70 @@
+<?php
+
+$mensagem = '';
+if(isset($_GET['status'])){
+  switch ($_GET['status']) {
+    case 'success':
+      $mensagem = '<div class="alert alert-success">Ação executada com sucesso!</div>';
+      break;
+
+    case 'error':
+      $mensagem = '<div class="alert alert-danger">Ação não executada!</div>';
+      break;
+  }
+}
+
+$resultados = '';
+foreach($categories as $category){
+  $resultados .= '<option>'.$category->name.'</option>';
+}
+
+$resultados = strlen($resultados) ? $resultados : '<tr>
+                                                     <td colspan="6" class="text-center">
+                                                     No products found
+                                                     </td>
+                                                  </tr>';
+
+?>
+<main>
+
+<?=$mensagem?>
+ 
+ <!-- Main Content -->
+  <main class="content">
+    <h1 class="title new-item">New Product</h1>
+    
+    <form>
+      <div class="input-field">
+        <label for="sku" class="label">Product SKU</label>
+        <input type="text" id="sku" class="input-text" name="sku" value="<?=$obProduct->sku?>">
+      </div>
+      <div class="input-field">
+        <label for="name" class="label">Product Name</label>
+        <input type="text" id="name" class="input-text" name="name" value="<?=$obProduct->name?>">
+      </div>
+      <div class="input-field">
+        <label for="price" class="label">Price</label>
+        <input type="text" id="price" class="input-text" name="price" value="<?=$obProduct->price?>">
+      </div>
+      <div class="input-field">
+        <label for="quantity" class="label">Quantity</label>
+        <input type="text" id="quantity" class="input-text" name="quantity" value="<?=$obProduct->quantity?>">
+      </div>
+      <div class="input-field">
+        <label for="category" class="label">Categories</label>
+        <select multiple id="category" class="input-text">
+          <?=$resultados?>
+        </select>
+      </div>
+      <div class="input-field">
+        <label for="description" class="label">Description</label>
+        <textarea type="text" id="description" class="input-text" name="description" value="<?=$obProduct->description?>"></textarea>
+      </div>
+      <div class="actions-form">
+        <a href="ProductList.php" class="action back">Back</a>
+        <input class="btn-submit btn-action" type="submit" value="Save Product" />
+      </div>
+      
+    </form>
+  </main>
+  <!-- Main Content -->

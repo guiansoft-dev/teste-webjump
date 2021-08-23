@@ -1,0 +1,83 @@
+<?php
+
+$mensagem = '';
+if(isset($_GET['status'])){
+  switch ($_GET['status']) {
+    case 'success':
+      $mensagem = '<div class="alert alert-success">Ação executada com sucesso!</div>';
+      break;
+
+    case 'error':
+      $mensagem = '<div class="alert alert-danger">Ação não executada!</div>';
+      break;
+  }
+}
+
+$resultados = '';
+foreach($products as $product){
+  $resultados .= '<tr>
+                    <td>'.$product->name.'</td>
+                    <td>'.$product->sku.'</td>
+                    <td>'."R$ ".number_format($product->price, 2, ',', '.').'</td>
+                    <td>'.$product->quantity.'</td>
+                    <td>'.$product->category.'</td>
+                    <td>
+                    <div class="actions">
+                    <a href="ProductEdit.php?sku='.$product->sku.'">
+                    <div class="action edit"><span>Edit</span></div>
+                    </a>
+                    <a href="ProductDelete.php?sku='.$product->sku.'">
+                    <div class="action delete"><span>Delete</span></div>
+                    </div>
+                    </a>
+                  </td>
+                </tr>';
+}
+
+$resultados = strlen($resultados) ? $resultados : '<tr>
+                                                     <td colspan="6" class="text-center">
+                                                     No products found
+                                                     </td>
+                                                  </tr>';
+
+?>
+<main>
+
+<?=$mensagem?>
+
+  <!-- Main Content -->
+  <main class="content">
+    <div class="header-list-page">
+      <h1 class="title">Products</h1>
+      <a href="ProductForm.php" class="btn-action">Add new Product</a>
+    </div>
+    <table class="data-grid">
+      <tr class="data-row">
+        <th class="data-grid-th">
+            <span class="data-grid-cell-content">Name</span>
+        </th>
+        <th class="data-grid-th">
+            <span class="data-grid-cell-content">SKU</span>
+        </th>
+        <th class="data-grid-th">
+            <span class="data-grid-cell-content">Price</span>
+        </th>
+        <th class="data-grid-th">
+            <span class="data-grid-cell-content">Quantity</span>
+        </th>
+        <th class="data-grid-th">
+            <span class="data-grid-cell-content">Categories</span>
+        </th>
+
+        <th class="data-grid-th">
+            <span class="data-grid-cell-content">Actions</span>
+        </th>
+      </tr>
+      <tr class="data-row">
+        <td class="data-grid-td">
+           <span class="data-grid-cell-content"><?=$resultados?></span>
+        </td>
+      </tr>
+    </table>
+  </main>
+  <!-- Main Content -->
