@@ -1,5 +1,5 @@
 # Teste Web Jump - desenvolvedor Backend
-Código do teste Web Jump com PHP orientado a objetos e MySQL.
+Código para teste Web Jump com PHP orientado a objetos e MySQL.
 
 ## Banco de dados
 Crie um banco de dados e execute as instruções SQLs abaixo para criar a tabela `webjump`:
